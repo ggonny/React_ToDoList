@@ -9,8 +9,14 @@ function App() {
     if (toDo === '') {
       return;
     }
-    setToDos((currentArray) => [toDo, ...currentArray]);
+    // ...cur의 순서를 바꾸면 todo가 위로 쌓인다.
+    setToDos((currentArray) => [...currentArray, toDo]);
     setToDo('');
+  };
+  // todo 배열 속 버튼의 index를 찾아서 삭제하라 ( filter함수 사용 )
+  // Array.prototype.filter() : 메서드는 주어진 함수의 테스트를 통과하는 모든 요소를 모아 새로운 배열로 반환합니다.
+  const deleteBtn = (index) => {
+    setToDos(toDos.filter((item, todoIndex) => index !== todoIndex));
   };
   return (
     <div>
@@ -22,7 +28,9 @@ function App() {
       <hr />
       <ul>
         {toDos.map((item, index) => (
-          <li key={index}>{item}</li>
+          <li key={index}>
+            {item} <button onClick={() => deleteBtn(index)}>❌</button>
+          </li>
         ))}
       </ul>
     </div>
